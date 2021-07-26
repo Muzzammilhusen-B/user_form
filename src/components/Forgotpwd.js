@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "antd/dist/antd.css";
 import { Form, Button, Input } from "antd";
 
 class Forgotpwd extends React.Component {

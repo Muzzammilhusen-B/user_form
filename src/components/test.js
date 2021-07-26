@@ -31,12 +31,17 @@ class Login extends Component {
   //on change event handler
   handleChange = (event) => {
     event.preventDefault();
+    let errors = this.state.errors;
     // console.log(event.target.value);
     const input = event.target;
     // console.log(event.target.value);
 
     const value = input.type === "checkbox" ? input.checked : input.value;
-    console.log(value);
+    // console.log(value);
+    if (!value.length > 5) {
+      errors["username"] = "Not valid username";
+    }
+    this.setState({ errors: errors });
 
     this.setState({ [input.name]: value });
   };
