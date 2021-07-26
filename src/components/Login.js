@@ -101,6 +101,7 @@ class Login extends Component {
   };
 
   render() {
+    const { errors } = this.state;
     return (
       <div>
         <form className="login-form" onSubmit={this.handleSubmit}>
@@ -118,7 +119,7 @@ class Login extends Component {
             />
           </label>
           <br />
-          <span style={{ color: "red" }}>{this.state.errors["username"]}</span>
+          <span style={{ color: "red" }}>{errors["username"]}</span>
           <br />
           <label>
             Password : {""}
@@ -134,7 +135,7 @@ class Login extends Component {
             />
           </label>
           <br />
-          <span style={{ color: "red" }}>{this.state.errors["password"]}</span>
+          <span style={{ color: "red" }}>{errors["password"]}</span>
           <br />
           <label htmlFor="remember">
             {""} Remember Me:

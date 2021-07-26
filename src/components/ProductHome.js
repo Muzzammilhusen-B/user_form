@@ -17,7 +17,7 @@ const product = [
     name: "Pen",
     image:
       "https://www.amrita.edu/sites/default/files/styles/news_banner_imagesbreakpoints_theme_norma_tablet_1x/public/fountain-pen-blog.jpg?itok=f-nqerRx&timestamp=1548828364",
-    company: "Montblanc",
+    company: "MONTBLANC",
     price: "150 Rs.",
   },
   {
@@ -62,7 +62,6 @@ class ProductHome extends Component {
               <Menu.Item
                 key="2"
                 onClick={this.redirectLogout}
-                type="primary"
                 style={{ float: "right" }}
               >
                 Log out
@@ -90,7 +89,7 @@ class ProductHome extends Component {
                       alt={item.name}
                       style={{
                         marginTop: "120px",
-                        width: "200px",
+                        width: "300px",
                         alignContent: "inherit",
                       }}
                       cover={<img alt="example" src={item.image} />}

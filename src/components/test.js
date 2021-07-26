@@ -31,17 +31,12 @@ class Login extends Component {
   //on change event handler
   handleChange = (event) => {
     event.preventDefault();
-    let errors = this.state.errors;
     // console.log(event.target.value);
     const input = event.target;
     // console.log(event.target.value);
 
     const value = input.type === "checkbox" ? input.checked : input.value;
-    // console.log(value);
-    if (!value.length > 5) {
-      errors["username"] = "Not valid username";
-    }
-    this.setState({ errors: errors });
+    console.log(value);
 
     this.setState({ [input.name]: value });
   };
@@ -106,6 +101,7 @@ class Login extends Component {
   };
 
   render() {
+    const { errors } = this.state;
     return (
       <div>
         <form className="login-form" onSubmit={this.handleSubmit}>
@@ -123,7 +119,9 @@ class Login extends Component {
             />
           </label>
           <br />
-          <span style={{ color: "red" }}>{this.state.errors["username"]}</span>
+          {errors["username"].length > 0 && (
+            <span style={{ color: "red" }}>{errors["username"]}</span>
+          )}
           <br />
           <label>
             Password : {""}
@@ -139,7 +137,9 @@ class Login extends Component {
             />
           </label>
           <br />
-          <span style={{ color: "red" }}>{this.state.errors["password"]}</span>
+          {errors["password"].length > 0 && (
+            <span style={{ color: "red" }}>{errors["password"]}</span>
+          )}
           <br />
           <label htmlFor="remember">
             {""} Remember Me:
