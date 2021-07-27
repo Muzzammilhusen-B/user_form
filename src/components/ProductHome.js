@@ -81,9 +81,10 @@ class ProductHome extends Component {
             }}
           >
             {product.map((item) => {
+              console.log(item.id);
               return (
-                <ul>
-                  <li key={item.id}>
+                <ul key={item.id}>
+                  <li>
                     <Card
                       hoverable
                       alt={item.name}

@@ -42,7 +42,7 @@ class Registration extends React.Component {
 
     const { name, value } = event.target;
     const checkbox = event.target.checked;
-    // console.log(checkbox);
+    console.log(checkbox);
     const isChecked = checkbox ? true : false;
     let errors = this.state.errors;
 

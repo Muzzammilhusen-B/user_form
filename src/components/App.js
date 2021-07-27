@@ -7,6 +7,7 @@ import Registered from "./Registered";
 import ProductHome from "./ProductHome";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import Login from "./test";
+// import Registration from "./testregi";
 
 const App = () => {
   return (

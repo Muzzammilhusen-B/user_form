@@ -7,7 +7,10 @@ class Login extends Component {
     username: "",
     password: "",
     remember: false,
-    errors: [],
+    errors: {
+      username: "",
+      password: "",
+    },
   };
   // component life cycle after mount
   componentDidMount() {
@@ -30,15 +33,33 @@ class Login extends Component {
 
   //on change event handler
   handleChange = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     // console.log(event.target.value);
-    const input = event.target;
-    // console.log(event.target.value);
+    const { name, value } = event.target;
+    const checkbox = event.target.checked;
+    // console.log(checkbox);
 
-    const value = input.type === "checkbox" ? input.checked : input.value;
-    console.log(value);
-
-    this.setState({ [input.name]: value });
+    const isChecked = checkbox ? true : "";
+    let errors = this.state.errors;
+    switch (name) {
+      case "username":
+        errors.username = !value.match(
+          /^(?=[a-zA-Z]{5,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/
+        )
+          ? "Username must be at least 5 characters long and without special character!"
+          : "";
+        break;
+      case "password":
+        errors.password = !value.match(
+          "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,10}$"
+        )
+          ? "*Password should contain one smallcase, uppercase, symbol & number each and between 6-10 length"
+          : "";
+        break;
+      default:
+        break;
+    }
+    this.setState({ errors, [name]: value, remember: isChecked });
   };
 
   //withRouter history for redirect the page
@@ -49,35 +70,8 @@ class Login extends Component {
 
   //form(fields) validation
   handleValidation = () => {
-    const { username, password } = this.state;
     let formIsValid = true;
-    let errors = {};
 
-    //username
-    if (!username) {
-      formIsValid = false;
-      errors["username"] = "*Please input username.";
-    }
-    if (typeof username !== "undefined") {
-      if (!username.match(/^(?=[a-zA-Z]{5,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/)) {
-        formIsValid = false;
-        errors["username"] = "Please input only minimum 5 characters ";
-      }
-    }
-    //password
-    if (typeof password !== "undefined") {
-      if (
-        !password.match(
-          "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,10}$"
-        )
-      ) {
-        formIsValid = false;
-        errors["password"] =
-          "*Password should contain one smallcase, uppercase, symbol & number each and between 6-10 length";
-      }
-    }
-
-    this.setState({ errors: errors });
     return formIsValid;
   };
 
@@ -88,15 +82,15 @@ class Login extends Component {
     // console.log(remember);
     // console.log(this.state);
 
-    if (remember && this.handleValidation()) {
-      alert("Form submitted");
+    if (remember && this.handleValidation(this.state.errors)) {
+      console.log("Form submitted with stored data", this.state);
       this.redirectLoginHome();
       localStorage.setItem("logindata", JSON.stringify(this.state));
-    } else if (this.handleValidation()) {
-      alert("Form submitted");
+    } else if (this.handleValidation(this.state.errors)) {
+      console.log("Form submitted without stored data", this.state);
       this.redirectLoginHome();
     } else if (!this.handleValidation()) {
-      alert("Form has error");
+      console.error("Form has error");
     }
   };
 
@@ -137,20 +131,21 @@ class Login extends Component {
           <br />
           <span style={{ color: "red" }}>{errors["password"]}</span>
           <br />
-          <label htmlFor="remember">
-            {""} Remember Me:
+          <label>
             <input
               type="checkbox"
               width={"100%"}
+              id="remember"
               name="remember"
-              checked={this.state.remember}
+              defaultChecked={this.state.remember}
               onChange={this.handleChange}
               style={{ marginTop: "10px" }}
             />
-            <Link className="login-form-forgot" to="/forgotpwd">
-              Forgot passwod
-            </Link>
+            {""} Remember Me
           </label>
+          <Link className="login-form-forgot" to="/forgotpwd">
+            Forgot passwod
+          </Link>
           <button
             className="login-form-button"
             type="submit"
