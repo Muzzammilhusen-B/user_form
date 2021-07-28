@@ -4,14 +4,9 @@ import Registration from "./Regitration";
 import Forgotpwd from "./Forgotpwd";
 import LoginHome from "./LoginHome";
 import Registered from "./Registered";
-import ProductHome from "./ProductHome";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-<<<<<<< HEAD
-// import Login from "./test";
-// import Registration from "./testregi";
-=======
-//import Login from "./test";
->>>>>>> 7a6b5d9864146eb7ed33a3d898f0ee6443039d2c
+// import LoginHome from "./lhome";
+import ProductDetails from "./ProductDetails";
 
 const App = () => {
   return (
@@ -23,7 +18,7 @@ const App = () => {
           <Route path="/forgotpwd" exact component={Forgotpwd} />
           <Route path="/loginhome" exact component={LoginHome} />
           <Route path="/registered" exact component={Registered} />
-          <Route path="/producthome" exact component={ProductHome} />
+          <Route path="/loginhome/:id" exact component={ProductDetails} />
         </Switch>
       </Router>
     </div>
